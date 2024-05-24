@@ -4,16 +4,40 @@
         "CALCULO DIFERENCIAL",
         "\\bMATEMATICAS I \\b(?![A-Z])"
     ],
+    "algebra_superior": [
+        "\u00c1lgebra Superior",
+        "ALGEBRA LINEAL"
+    ],
+    "programacion": [
+        "Metodolog\u00eda de la Programaci\u00f3n",
+        "PROGRAMACION"
+    ],
     "calculo_integral": [
         "C\u00e1lculo Integral",
         "CALCULO INTEGRAL",
         "\\bMATEMATICAS II \\b(?![A-Z])"
+    ],
+    "metodos_numericos": [
+        "Programaci\u00f3n y M\u00e9todos Num\u00e9ricos",
+        "METODOS NUMERICOS"
+    ],
+    "quimica": [
+        "Qu\u00edmica",
+        "QUIMICA GENERAL"
+    ],
+    "probabilidad_estadistica": [
+        "Probabilidad y Estad\u00edstica",
+        "PROBABILIDAD Y ESTADISTICA"
     ],
     "calculo_multivariable": [
         "C\u00e1lculo Multivariable",
         "CALCULO MULTIVARIABLE",
         "\\bMATEMATICAS III \\b(?![A-Z])"
     ],
+    "electricidad_magnetismo": [
+        "Electricidad y Magnetismo",
+        "ELECTRICIDAD Y MAGNETISMO"
+    ] ,
     "ecuaciones_diferenciales": [
         "Ecuaciones Diferenciales",
         "ECUACIONES DIFERENCIALES"
