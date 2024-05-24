@@ -36,7 +36,7 @@ class ExportToExcel():
         hoja_activa['E1'] = 'periodo'
 
         # Columnas de materias
-        modoPasarMateria = ['_op1', '_op1_extra', '_op2', '_op2_extra', '_op3', '_op3_extra', '_acre']
+        modoPasarMateria = ['_op1', '_op1_extra', '_op2', '_op2_extra', '_op3', '_op3_extra', '_acre', '_reg']
         columna = 6
         for materia, formas in self.lista_materias.items():
             for modo in modoPasarMateria:
@@ -91,7 +91,7 @@ class ExportToExcel():
                         if calificacion:
                             # Variable para saber la posición del modo de calificación
                             pos = 0
-                            modos = ["ORD", "EXTRA", "ORD", "EXTRA", "ORD", "EXTRA", "ACR"]
+                            modos = ["ORD", "EXTRA", "ORD", "EXTRA", "ORD", "EXTRA", "ACR", "REG"]
 
                             for i in range(0, len(calificacion), 2):
                                 # Buscar la posición del modo de calificación
@@ -113,7 +113,7 @@ class ExportToExcel():
                                     hoja_activa.cell(row=contadorFila, column=columna+pos-1, value=(int)(-1))
                     
                     # Aumentamos el contador de columnas
-                    columna += 7
+                    columna += 8
 
                 # Aumentamos el contador de filas
                 contadorFila += 1
