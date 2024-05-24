@@ -113,6 +113,7 @@ class ExtractionInterface(Interface):
                 self.btn_exportar.place(x = 520, y = 240)
                 self.btn_seleccionar.config(state="normal", width = "18", text = "Seleccionar carpeta", font=("Inter", 18), bg = "black", fg = "white")
 
-            messagebox.showerror("Error", "Ocurrió un error al exportar las calificaciones.")
+            messagebox.showerror("Error", "Ocurrió un error al exportar las calificaciones.\n" +
+                                 "Revisa tus archivos PDF y/o asegurate de que el archivo Excel no esté abierto.")
             self.ruta_carpeta = None
             return

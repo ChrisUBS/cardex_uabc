@@ -72,7 +72,7 @@ class ReadPDF():
         calificaciones=[]
 
         # Arreglo de modos y subarreglos
-        modos = ["Ord", "Ext", "Acr"]
+        modos = ["Ord", "Ext", "Acr", "Reg"]
 
         # Dividimos todo el PDF en lineas
         for linea in texto.splitlines():
@@ -93,6 +93,8 @@ class ReadPDF():
                             calificaciones.append("EXTRA")
                         elif modo == "Acr":
                             calificaciones.append("ACR")
+                        elif modo == "Reg":
+                            calificaciones.append("REG")
                         break
         
                 # Recortamos la linea de nuestro documento, omitiendo todo hasta la calificacion
