@@ -17,5 +17,22 @@
     "ecuaciones_diferenciales": [
         "Ecuaciones Diferenciales",
         "ECUACIONES DIFERENCIALES"
+    ],
+    "quimica":[
+        "Qu\u00edmica",
+        "QUIMICA GENERAL"
+    ],
+    "algebra_superior":[
+        "ALGEBRA LINEAL",
+        "\u00c1lgebra Superior"
+    ],
+    "probabilidad":[
+        "PROBABILIDAD Y ESTADISTICA",
+        "Probabilidad y Estad\u00edstica"
+    ],
+    "metodos_numericos":[
+        "Programaci\u00f3n y M\u00e9todos Num\u00e9ricos",
+        "METODOS NUMERICOS"
     ]
+    
 }
