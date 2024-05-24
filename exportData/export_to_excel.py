@@ -87,54 +87,30 @@ class ExportToExcel():
                 for materia, formas in self.lista_materias.items():
                     for forma in formas:
                         calificacion = archivo_pdf.obtener_calificaciones_materia(forma)
+
                         if calificacion:
-                            # Insertar calificaciones en la hoja de Excel
-                            j = 0
+                            # Variable para saber la posición del modo de calificación
+                            pos = 0
+                            modos = ["ORD", "EXTRA", "ORD", "EXTRA", "ORD", "EXTRA", "ACR"]
+
                             for i in range(0, len(calificacion), 2):
-                                if calificacion[i] == "ORD" and (j == 0 or j == 2 or j == 4):
-                                    try:
+                                # Buscar la posición del modo de calificación
+                                while calificacion[i] != modos[pos]:
+                                    pos += 1
+
+                                # Sumarle 1 a la columna para no sobreescribir la materia incorrecta
+                                pos += 1
+
+                                # Insertar calificación en la hoja de Excel
+                                try:
                                         if calificacion[i+1] == "NP":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
+                                            hoja_activa.cell(row=contadorFila, column=columna+pos-1, value=(int)(-2))
                                         elif calificacion[i+1] == "SD":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
+                                            hoja_activa.cell(row=contadorFila, column=columna+pos-1, value=(int)(-3))
                                         else:
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
-                                    except:
-                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
-                                elif calificacion[i] == "EXTRA" and (j == 1 or j == 3 or j == 5):
-                                    try:
-                                        if calificacion[i+1] == "NP":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
-                                        elif calificacion[i+1] == "SD":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
-                                        else:
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
-                                    except:
-                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
-                                elif calificacion[i] == "ACR" and j == 6:
-                                    try:
-                                        if calificacion[i+1] == "NP":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
-                                        elif calificacion[i+1] == "SD":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
-                                        else:
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
-                                    except:
-                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
-                                else:
-                                    try:
-                                        if calificacion[i+1] == "NP":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
-                                        elif calificacion[i+1] == "SD":
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
-                                        else:
-                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
-                                    except:
-                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
-                                j += 1
-                                if j > 6:
-                                    j = 0
-                            break
+                                            hoja_activa.cell(row=contadorFila, column=columna+pos-1, value=(int)(calificacion[i+1]))
+                                except:
+                                    hoja_activa.cell(row=contadorFila, column=columna+pos-1, value=(int)(-1))
                     
                     # Aumentamos el contador de columnas
                     columna += 7
@@ -148,7 +124,7 @@ class ExportToExcel():
                 letra_columna = hoja_activa.cell(row=1, column=columna).column_letter
                 hoja_activa.column_dimensions[letra_columna].width = 30
 
-            # Recorrer las filas y columnas de la hoja
+            # Recorrer las filas y columnas de la hoja para reemplazar los valores nulos por -1
             for fila in hoja_activa.iter_rows():
                 for celda in fila:
                     if celda.value is None:
