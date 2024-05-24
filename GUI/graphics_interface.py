@@ -17,15 +17,22 @@ class GraphicsInterface(Interface):
 
         # Combo box de las materias
         self.materias = ["Materia 1", "Materia 2", "Materia 3", "Materia 4", "Materia 5"]
-        self.cb_materias = ttk.Combobox(self.ventana, values = self.materias, width = 10, font=("Inter", 18))
-        self.cb_materias.place(x = 335, y = 120)
+        self.cb_materias = ttk.Combobox(self.ventana, values = self.materias, width = 15, font=("Inter", 18))
+        self.cb_materias.place(x = 300, y = 120)
 
         # Botones
-        #! Agregar los botones de las graficas
+        self.btn_graphic_barras = tkinter.Button(self.ventana, width = "15", text = "Gráfica de barras", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2")
+        self.btn_graphic_pastel = tkinter.Button(self.ventana, width = "15", text = "Gráfica de pastel", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2")
+        self.btn_graphic_poligonal = tkinter.Button(self.ventana, width = "15", text = "Gráfica poligonal", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2")
+        self.btn_graphic_lineal = tkinter.Button(self.ventana, width = "15", text = "Gráfica lineal", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2")
         self.btn_regresar = tkinter.Button(self.ventana, width = "10", text = "Regresar", font=("Inter", 20), bg = "#E4001E", fg = "white", cursor = "hand2", command=self.ventana.destroy)
 
         # Posicionar botones
-        self.btn_regresar.place(x = 320, y = 293)
+        self.btn_graphic_barras.place(x = 200, y = 169)
+        self.btn_graphic_pastel.place(x = 429, y = 169)
+        self.btn_graphic_poligonal.place(x = 200, y = 240)
+        self.btn_graphic_lineal.place(x = 429, y = 240)
+        self.btn_regresar.place(x = 320, y = 302)
 
     ## Funciones de los botones ##
         
