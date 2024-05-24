@@ -94,10 +94,14 @@ class ExportToExcel():
                             modos = ["ORD", "EXTRA", "ORD", "EXTRA", "ORD", "EXTRA", "ACR", "REG"]
 
                             for i in range(0, len(calificacion), 2):
-                                # Buscar la posición del modo de calificación
-                                while calificacion[i] != modos[pos]:
-                                    pos += 1
 
+                                try:
+                                    # Buscar la posición del modo de calificación
+                                    while calificacion[i] != modos[pos]:
+                                        pos += 1
+                                except:
+                                    break
+                                
                                 # Sumarle 1 a la columna para no sobreescribir la materia incorrecta
                                 pos += 1
 

@@ -41,7 +41,7 @@ class ExtractionInterface(Interface):
         # Botones
         self.btn_seleccionar = tkinter.Button(self.ventana, width = "18", text = "Seleccionar carpeta", font=("Inter", 18), bg = "black", fg = "white", cursor = "hand2", command=self.seleccionar_carpeta)
         self.btn_exportar = tkinter.Button(self.ventana, width = "18", text = "Iniciar", font=("Inter", 18), bg = "black", fg = "white", cursor = "hand2", command=self.iniciar_exportacion)
-        self.btn_regresar = tkinter.Button(self.ventana, width = "10", text = "Regresar", font=("Inter", 20), bg = "#E4001E", fg = "white", cursor = "hand2", command=self.ventana.destroy)
+        self.btn_regresar = tkinter.Button(self.ventana, width = "10", text = "Regresar", font=("Inter", 20), bg = "#E4001E", fg = "white", cursor = "hand2", command=self.regresar)
 
         # Posicionar botones
         self.btn_seleccionar.place(x = 28, y = 240)
@@ -54,6 +54,16 @@ class ExtractionInterface(Interface):
     def print_info(self):
         messagebox.showinfo("Información", 
                             "Presione el botón 'Seleccionar carpeta', luego seleccione la carpeta donde se encuentran los PDFs y por último haga clic en el botón 'Iniciar'.")
+
+    # Botón de regresar
+    def regresar(self):
+        try:
+            if self.thread_exportar.is_alive():
+                messagebox.showerror("Error", "No puedes regresar mientras se está exportando.")
+            else:
+                self.ventana.destroy()
+        except:
+            self.ventana.destroy()
 
     # Botón de seleccionar carpeta
     def seleccionar_carpeta(self):
@@ -80,9 +90,9 @@ class ExtractionInterface(Interface):
             self.progressbar.start(10)
 
             # Iniciar el hilo de exportación
-            thread_exportar = Thread(target=self.hilo_exportar)
-            if not thread_exportar.is_alive():
-                thread_exportar.start()
+            self.thread_exportar = Thread(target=self.hilo_exportar)
+            if not self.thread_exportar.is_alive():
+                self.thread_exportar.start()
 
     def hilo_exportar(self):
         try:
