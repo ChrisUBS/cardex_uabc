@@ -1,0 +1,21 @@
+{
+    "calculo_diferencial": [
+        "C\u00e1lculo Diferencial",
+        "CALCULO DIFERENCIAL",
+        "\\bMATEMATICAS I \\b(?![A-Z])"
+    ],
+    "calculo_integral": [
+        "C\u00e1lculo Integral",
+        "CALCULO INTEGRAL",
+        "\\bMATEMATICAS II \\b(?![A-Z])"
+    ],
+    "calculo_multivariable": [
+        "C\u00e1lculo Multivariable",
+        "CALCULO MULTIVARIABLE",
+        "\\bMATEMATICAS III \\b(?![A-Z])"
+    ],
+    "ecuaciones_diferenciales": [
+        "Ecuaciones Diferenciales",
+        "ECUACIONES DIFERENCIALES"
+    ]
+}
