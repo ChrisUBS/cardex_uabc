@@ -73,9 +73,13 @@ class ExportToExcel():
                     # matricula,periodo=extracion_matricula_periodo(rutaPDF)
                     hoja_activa[f'A{contadorFila}'] = nombreCompleto[len(nombreCompleto) - 2]
                     hoja_activa[f'B{contadorFila}'] = nombreCompleto[len(nombreCompleto) - 1]
-                    hoja_activa[f'C{contadorFila}'] = nombreCompleto[0]
                     hoja_activa[f'D{contadorFila}'] = matricula
                     hoja_activa[f'E{contadorFila}'] = periodo
+
+                    if len(nombreCompleto) > 3:
+                        hoja_activa[f'C{contadorFila}'] = nombreCompleto[0] + " " + nombreCompleto[1]
+                    else:
+                        hoja_activa[f'C{contadorFila}'] = nombreCompleto[0]
 
                 # Extraer las calificaciones por materia
                 calificacion = []
@@ -88,20 +92,52 @@ class ExportToExcel():
                             j = 0
                             for i in range(0, len(calificacion), 2):
                                 if calificacion[i] == "ORD" and (j == 0 or j == 2 or j == 4):
-                                    hoja_activa.cell(row=contadorFila, column=columna+j, value=calificacion[i+1])
+                                    try:
+                                        if calificacion[i+1] == "NP":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
+                                        elif calificacion[i+1] == "SD":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
+                                        else:
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
+                                    except:
+                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
                                 elif calificacion[i] == "EXTRA" and (j == 1 or j == 3 or j == 5):
-                                    hoja_activa.cell(row=contadorFila, column=columna+j, value=calificacion[i+1])
+                                    try:
+                                        if calificacion[i+1] == "NP":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
+                                        elif calificacion[i+1] == "SD":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
+                                        else:
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
+                                    except:
+                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
                                 elif calificacion[i] == "ACR" and j == 6:
-                                    hoja_activa.cell(row=contadorFila, column=columna+j, value=calificacion[i+1])
+                                    try:
+                                        if calificacion[i+1] == "NP":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
+                                        elif calificacion[i+1] == "SD":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
+                                        else:
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
+                                    except:
+                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
                                 else:
-                                    hoja_activa.cell(row=contadorFila, column=columna+j, value="-1")
+                                    try:
+                                        if calificacion[i+1] == "NP":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-2))
+                                        elif calificacion[i+1] == "SD":
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-3))
+                                        else:
+                                            hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(calificacion[i+1]))
+                                    except:
+                                        hoja_activa.cell(row=contadorFila, column=columna+j, value=(int)(-1))
                                 j += 1
                                 if j > 6:
                                     j = 0
                             break
                     
                     # Aumentamos el contador de columnas
-                    columna += 6
+                    columna += 7
 
                 # Aumentamos el contador de filas
                 contadorFila += 1
@@ -110,7 +146,13 @@ class ExportToExcel():
             # Ajustar tamaños de las columnas
             for columna in range(1, hoja_activa.max_column + 1):
                 letra_columna = hoja_activa.cell(row=1, column=columna).column_letter
-                hoja_activa.column_dimensions[letra_columna].width = 20
+                hoja_activa.column_dimensions[letra_columna].width = 30
+
+            # Recorrer las filas y columnas de la hoja
+            for fila in hoja_activa.iter_rows():
+                for celda in fila:
+                    if celda.value is None:
+                        celda.value = (int)(-1)
 
             # Guardamos el archivo Excel
             self.workbook.save(filename=self.ruta_carpeta + '/cardexUABC.xlsx')

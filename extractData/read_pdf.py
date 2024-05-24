@@ -8,12 +8,8 @@ class ReadPDF():
     def __init__(self, pathPDF):
         self.pathPDF = pathPDF
 
-        #Abrimos el PDF
-        self.pdf_file = open(pathPDF, 'rb')
-        self.pdf_reader = PyPDF2.PdfReader(self.pdf_file)
-
         # # Abrimos el PDF
-        # self.pdf_reader = PyPDF2.PdfFileReader(open(self.pathPDF, 'rb'))
+        self.pdf_reader = PyPDF2.PdfReader(open(self.pathPDF, 'rb'))
 
     ### Métodos ###
 
@@ -75,6 +71,9 @@ class ReadPDF():
         # Arreglo para guardar todas las calificaciones encontradas de la materia en concreto
         calificaciones=[]
 
+        # Arreglo de modos y subarreglos
+        modos = ["Ord", "Ext", "Acr"]
+
         # Dividimos todo el PDF en lineas
         for linea in texto.splitlines():
             
@@ -84,20 +83,17 @@ class ReadPDF():
                 # Creamos un arreglo para guardar cada digito de la calificacion por separado
                 calificacion_partida = []
 
-                # IF para buscar si el alumno paso la materia en ORDINARIO
-                if linea.find("Ord") != -1:
-                    pos = linea.find("Ord") # Ver en que posicion se encuentra la palabra ORD
-                    calificaciones.append("ORD")
-
-                # IF para buscar si el alumno paso la materia en EXTRAORDINARIO
-                elif linea.find("Ext") != -1:
-                    pos = linea.find("Ext")
-                    calificaciones.append("EXTRA") # Ver en que posicion se encuentra la palabra EXTRA
-                
-                # IF para buscar si el alumno paso la materia en ACREDITACION
-                elif linea.find("Acr") != -1:
-                    pos = linea.find("Acr") # Ver en que posicion se encuentra la palabra ACR
-                    calificaciones.append("ACR")
+                # Buscamos en que modo paso la materia
+                for modo in modos:
+                    if linea.find(modo) != -1:
+                        pos = linea.find(modo)
+                        if modo == "Ord":
+                            calificaciones.append("ORD")
+                        elif modo == "Ext":
+                            calificaciones.append("EXTRA")
+                        elif modo == "Acr":
+                            calificaciones.append("ACR")
+                        break
         
                 # Recortamos la linea de nuestro documento, omitiendo todo hasta la calificacion
                 linea_rec = linea[pos+4:] 
