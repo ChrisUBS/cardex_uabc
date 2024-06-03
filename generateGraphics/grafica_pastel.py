@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-class GraficaBarras:
+class GraficaPastel:
 
     def __init__(self, materia_seleccionada):
         self.materia_seleccionada = materia_seleccionada
