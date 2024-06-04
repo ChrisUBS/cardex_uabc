@@ -33,7 +33,7 @@ class MenuInterface(Interface):
     # Botón de información
     def print_info(self):
         messagebox.showinfo("Información", 
-                            "Cardex UABC es una aplicación que permite extraer las calificaciones de los cardex de la UABC, exportarlas a un archivo de Excel y generar gráficas con los datos.\n" +
+                            "Cárdex UABC es una aplicación que permite extraer las calificaciones de los cárdex de la UABC, exportarlas a un archivo de Excel y generar gráficas con los datos.\n" +
                             "\nDesarrollado por: \n- Christian Uriel Bonilla Suárez\n- Jose Eduardo Becerra Flores\n\nVersión: 2.0")
         
     # Botón de extracción

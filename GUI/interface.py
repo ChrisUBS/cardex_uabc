@@ -16,7 +16,7 @@ class Interface(ABC):
 
         # Ajustes de la ventana
         self.ventana = self.root
-        self.ventana.title("Cardex UABC")
+        self.ventana.title("Cárdex UABC")
         self.ventana.geometry(self.WIDTH + "x" + self.HEIGHT)
         self.ventana.resizable(False, False)
         self.ventana.config(bg = BG_color)
@@ -24,7 +24,7 @@ class Interface(ABC):
         self.centrar_ventana()
 
         # Etiqueta título
-        self.lbl_titulo = tkinter.Label(self.ventana, text = "Cardex UABC", font=("Inter", 40, "bold"), bg = BG_color, fg = "white")
+        self.lbl_titulo = tkinter.Label(self.ventana, text = "Cárdex UABC", font=("Inter", 40, "bold"), bg = BG_color, fg = "white")
         self.lbl_titulo.place(x = 230, y = 30)
 
         # Botón de información
