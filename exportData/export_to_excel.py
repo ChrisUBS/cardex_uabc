@@ -3,6 +3,7 @@ from extractData.read_pdf import ReadPDF
 import os
 from openpyxl import Workbook
 import json
+from exportData.export_to_csv import set_ruta_carpeta
 
 class ExportToExcel():
 
@@ -136,6 +137,8 @@ class ExportToExcel():
 
             # Guardamos el archivo Excel
             self.workbook.save(filename=self.ruta_carpeta + '/cardexUABC.xlsx')
+            set_ruta_carpeta(self.ruta_carpeta)
             return True
         else:
+            set_ruta_carpeta("")
             return False

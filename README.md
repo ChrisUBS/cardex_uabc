@@ -7,6 +7,8 @@ Cardex UABC es una aplicación que permite extraer las calificaciones de los car
 - Instalar Python en su última versión con las siguientes librerías:
 1. Tkinter
 2. PyPDF2
+3. Pandas
+4. Matplotlib
 
 ## Uso
 

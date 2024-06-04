@@ -4,7 +4,7 @@ import pandas as pd
 import json
 from exportData.export_to_csv import get_ruta_carpeta
 
-class GraficaBarras:
+class GraficaPastel:
 
     def __init__(self, materia_seleccionada):
         self.materia_seleccionada = materia_seleccionada
@@ -17,28 +17,41 @@ class GraficaBarras:
 
         # Filtrar las calificaciones mayores de 60 de cada columna
         ord1 = data[data[self.materia + '_op1'] >= 60][self.materia + '_op1']
-        extra1 = data[data[self.materia + '_op1_extra'] >= 60][self.materia + '_op1_extra']
         ord2 = data[data[self.materia + '_op2'] >= 60][self.materia + '_op2']
-        extra2 = data[data[self.materia + '_op2_extra'] >= 60][self.materia + '_op2_extra']
         ord3 = data[data[self.materia + '_op3'] >= 60][self.materia + '_op3']
+        extra1 = data[data[self.materia + '_op1_extra'] >= 60][self.materia + '_op1_extra']
+        extra2 = data[data[self.materia + '_op2_extra'] >= 60][self.materia + '_op2_extra']
         extra3 = data[data[self.materia + '_op3_extra'] >= 60][self.materia + '_op3_extra']
         acre = data[data[self.materia + '_acre'] >= 60][self.materia + '_acre']
         reg = data[data[self.materia + '_reg'] >= 60][self.materia + '_reg']
 
+        # Sumar la cantidad de aprobados
+        aprobados_ordi = ord1.count() + ord2.count() + ord3.count()
+        aprobados_extra = extra1.count() + extra2.count() + extra3.count()
+        aprobados_otros = acre.count() + reg.count()
+
         # Datos
-        categorias = ['Ord 1', 'Extra 1', 'Ord 2', 'Extra 2', 'Ord 3', 'Extra 3', 'Acreditación', 'Regularización']
-        valores = [ord1.count(), extra1.count(), ord2.count(), extra2.count(), ord3.count(), extra3.count(), acre.count(), reg.count()]
+        categorias = []
+        porcentajes = []
+        if aprobados_ordi > 0:
+            categorias.append('Ordis')
+            porcentajes.append(aprobados_ordi)
+        if aprobados_extra > 0:
+            categorias.append('Extras')
+            porcentajes.append(aprobados_extra)
+        if aprobados_otros > 0:
+            categorias.append('Otros')
+            porcentajes.append(aprobados_otros)
 
-        # Crear el gráfico de barras
-        plt.figure(num='Gráfica de barras', figsize=(12, 5))
-        plt.bar(categorias, valores)
+        # Crear el gráfico de pastel
+        plt.figure(num='Gráfica pastel')
+        plt.pie(porcentajes, labels=categorias, autopct='%1.1f%%', startangle=140)
 
-        # Añadir título y etiquetas
-        plt.title(self.materia_seleccionada + " (Total estudiantes: " + str(len(data)) + ")")
-        plt.xlabel("Oportunidades")
-        plt.ylabel("Cantidad de aprobados")
+        # Añadir título
+        plt.title(self.materia_seleccionada + " (Aprobados por cada categoría)")
 
         # Mostrar el gráfico
+        plt.axis('equal')  # Asegurar que el gráfico de pastel sea un círculo
         plt.show()
 
     def obtener_materia(self):

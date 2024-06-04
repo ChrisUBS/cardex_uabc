@@ -3,7 +3,12 @@ from GUI.interface import Interface
 import tkinter
 from tkinter import messagebox, ttk, filedialog
 import json
+from exportData.export_to_csv import export_to_csv, get_ruta_carpeta
+import matplotlib.pyplot as plt
 from generateGraphics.grafica_barras import GraficaBarras
+from generateGraphics.grafica_pastel import GraficaPastel
+from generateGraphics.grafica_area import GraficaArea
+from generateGraphics.grafica_barras_apiladas import GraficaBarrasApiladas
 
 class GraphicsInterface(Interface):
     # Constante
@@ -29,15 +34,15 @@ class GraphicsInterface(Interface):
         # Botones
         self.btn_graphic_barras = tkinter.Button(self.ventana, width = "15", text = "Gráfica de barras", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("barras"))
         self.btn_graphic_pastel = tkinter.Button(self.ventana, width = "15", text = "Gráfica de pastel", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("pastel"))
-        self.btn_graphic_poligonal = tkinter.Button(self.ventana, width = "15", text = "Gráfica poligonal", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("poligonal"))
-        self.btn_graphic_lineal = tkinter.Button(self.ventana, width = "15", text = "Gráfica lineal", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("lineal"))
-        self.btn_regresar = tkinter.Button(self.ventana, width = "10", text = "Regresar", font=("Inter", 20), bg = "#E4001E", fg = "white", cursor = "hand2", command=self.ventana.destroy)
+        self.btn_graphic_area = tkinter.Button(self.ventana, width = "15", text = "Gráfica de área", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("area"))
+        self.btn_graphic_barras_apiladas = tkinter.Button(self.ventana, width = "15", text = "Barras apiladas", font=("Inter", 15), bg = "black", fg = "white", cursor = "hand2", command=lambda: self.graphic_button("barrasapiladas"))
+        self.btn_regresar = tkinter.Button(self.ventana, width = "10", text = "Regresar", font=("Inter", 20), bg = "#E4001E", fg = "white", cursor = "hand2", command=lambda: self.regresar())
 
         # Posicionar botones
         self.btn_graphic_barras.place(x = 200, y = 169)
         self.btn_graphic_pastel.place(x = 429, y = 169)
-        self.btn_graphic_poligonal.place(x = 200, y = 240)
-        self.btn_graphic_lineal.place(x = 429, y = 240)
+        self.btn_graphic_area.place(x = 200, y = 240)
+        self.btn_graphic_barras_apiladas.place(x = 429, y = 240)
         self.btn_regresar.place(x = 320, y = 302)
 
     ## Funciones de los botones ##
@@ -48,18 +53,28 @@ class GraphicsInterface(Interface):
                             "Seleccione una materia y después presione el botón de la gráfica que necesite.\n\n" +
                             "Importante:\nAntes de graficar debes extraer la información de los PDFs.")
     
+    # Botón de regresar
+    def regresar(self):
+        plt.close() # Cerrar la ventana de la gráfica
+        self.ventana.destroy()
+
     # Botones de las gráficas
     def graphic_button(self, tipo_grafica):
+        plt.close() # Cerrar la ventana de la gráfica
         if (self.materia_seleccionada == ""):
             messagebox.showerror("Error", "Selecciona una materia.")
+        elif (get_ruta_carpeta() == ""):
+            messagebox.showerror("Error", "Primero extrae la información de los PDFs.")
+        elif (export_to_csv() == False):
+            messagebox.showerror("Error", "No se pudo acceder al archivo Excel.")
         elif (tipo_grafica == "barras"):
             GraficaBarras(self.materia_seleccionada).generar_grafica()
         elif (tipo_grafica == "pastel"):
-            pass
-        elif (tipo_grafica == "poligonal"):
-            pass
-        elif (tipo_grafica == "lineal"):
-            pass
+            GraficaPastel(self.materia_seleccionada).generar_grafica()
+        elif (tipo_grafica == "area"):
+            GraficaArea(self.materia_seleccionada).generar_grafica()
+        elif (tipo_grafica == "barrasapiladas"):
+            GraficaBarrasApiladas(self.materia_seleccionada).generar_grafica()
 
     ## Funciones complementarias ##
 
