@@ -27,8 +27,8 @@ Para utilizar la aplicación, siga estos pasos:
 
 Este proyecto fue desarrollado por:
 
-- Jose Eduardo Becerra Flores
 - Christian Uriel Bonilla Suárez
+- Jose Eduardo Becerra Flores
 
 ## Versión
 
